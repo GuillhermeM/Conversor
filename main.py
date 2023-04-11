@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 from alpha_vantage.foreignexchange import ForeignExchange
 from datetime import datetime, timedelta
 import pandas as pd
+from tkinter import *
+
 
 class conversor_moeda:
     def __init__(self):
@@ -28,6 +30,7 @@ class conversor_moeda:
         # Defina a data de um mês atrás e a data atual
         self.end_date = datetime.now().strftime('%Y-%m-%d')
         self.start_date = (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')
+        
 
         # Obtenha os dados históricos da moeda usando a API da Alpha Vantage
         self.fx = ForeignExchange(key=self.api_key)
@@ -43,9 +46,20 @@ class conversor_moeda:
         plt.title(f'Taxa de variação diária de {self.symbol} em um mês')
         plt.xlabel('Data')
         plt.ylabel('Taxa de variação diária')
+        
+        # Remove o eixo x
+        plt.gca().axes.xaxis.set_visible(False)
+        
         plt.show()       
         
         
 
 aa = conversor_moeda()
 aa.graff()
+
+# Plote o segundo gráfico
+plt.plot(aa.daily_returns.index[-10:], aa.daily_returns[-10:])
+plt.title(f'Taxa de variação diária de {aa.symbol} nos últimos 10 dias')
+plt.xlabel('Data')
+plt.ylabel('Taxa de variação diária')
+plt.show()
