@@ -1,4 +1,8 @@
 import requests
+import pandas as pd 
+from datetime import datetime
+import time
+import matplotlib.pyplot as plt
 
 class conversor_moeda:
     def __init__(self):
@@ -17,7 +21,15 @@ class conversor_moeda:
     def most(self):
         self.doli = float(self.cotacao_dolar)
         print('O dolar atual é',self.doli)
-        
+
+        cotacoes = [self.cotacao_dolar, self.cotacao_euro, self.cotacao_bitc, self.cotacao_yene, self.cotacao_dolartur]
+
+        moedas = ['Dólar', 'Euro', 'Bitcoin', 'Iene', 'Dólar Turismo']
+        plt.bar(moedas, cotacoes)
+        plt.title('Cotações')
+        plt.xlabel('Moedas')
+        plt.ylabel('Cotações')
+        plt.show()
 
 aa = conversor_moeda()
 aa.most()
